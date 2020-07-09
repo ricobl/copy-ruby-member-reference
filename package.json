@@ -10,14 +10,14 @@
     "Other"
   ],
   "activationEvents": [
-        "onCommand:copy-ruby-member-reference.helloWorld"
+    "onCommand:copy-ruby-member-reference.copyReference"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "copy-ruby-member-reference.helloWorld",
-        "title": "Hello World"
+        "command": "copy-ruby-member-reference.copyReference",
+        "title": "Copy Ruby Reference"
       }
     ]
   },

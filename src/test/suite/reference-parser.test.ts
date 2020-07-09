@@ -16,6 +16,10 @@ suite.only('ReferenceParser', () => {
     parseEquals('class Klass', ['Klass']);
   });
 
+	test('parses inherited class', () => {
+    parseEquals('class Klass < Base', ['Klass']);
+  });
+
 	test('parses nested members', () => {
     let source = [
       'module Mod',

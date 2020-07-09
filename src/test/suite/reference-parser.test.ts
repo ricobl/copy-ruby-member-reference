@@ -7,5 +7,12 @@ suite.only('ReferenceParser', () => {
     let parser = new ReferenceParser(source);
     let result = parser.parse();
 		assert.deepEqual(result, ['Mod']);
+  });
+
+	test('parses simple class', () => {
+    let source = 'class Klass';
+    let parser = new ReferenceParser(source);
+    let result = parser.parse();
+		assert.deepEqual(result, ['Klass']);
 	});
 });

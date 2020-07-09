@@ -2,18 +2,18 @@ import * as assert from 'assert';
 import { ReferenceParser } from '../../reference-parser';
 
 suite.only('ReferenceParser', () => {
-	test('parses simple module', () => {
-    let source = 'module Mod';
+  function parseEquals(source: string, expected: Array<string>) {
     let parser = new ReferenceParser(source);
     let result = parser.parse();
-		assert.deepEqual(result, ['Mod']);
+    assert.deepEqual(result, expected);
+  }
+
+	test('parses simple module', () => {
+    parseEquals('module Mod', ['Mod']);
   });
 
 	test('parses simple class', () => {
-    let source = 'class Klass';
-    let parser = new ReferenceParser(source);
-    let result = parser.parse();
-		assert.deepEqual(result, ['Klass']);
+    parseEquals('class Klass', ['Klass']);
   });
 
 	test('parses nested members', () => {
@@ -21,8 +21,6 @@ suite.only('ReferenceParser', () => {
       'module Mod',
       '  class Klass'
     ].join('\n');
-    let parser = new ReferenceParser(source);
-    let result = parser.parse();
-		assert.deepEqual(result, ['Mod', 'Klass']);
+    parseEquals(source, ['Mod', 'Klass']);
   });
 });

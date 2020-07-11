@@ -13,6 +13,9 @@ export class Member {
     if (this.type === 'def') {
       return '#';
     }
+    else if (this.type === 'selfdef') {
+      return '.';
+    }
     return '::';
   }
 }
@@ -29,14 +32,14 @@ export class PathParser {
   }
 
   members() : Array<Member> {
-    const membersRegex = /^(?:\n*)(\s*)(class|module|def)(?:\s+)(\w+)/gm;
+    const membersRegex = /^(?:\n*)(\s*)(class|module|def)(?:\s+)(self\.)?(\w+)/gm;
     const matches = this.source.matchAll(membersRegex);
 
     const items : Array<Member> = [];
     let lastIndentLength = 0;
     let indentLevel = 0;
 
-    for (let [_match, indent, type, name] of matches) {
+    for (let [_match, indent, type, self, name] of matches) {
       // Remove any previous items on the same level
       if (lastIndentLength === indent.length) {
         items.splice(indentLevel);
@@ -47,6 +50,7 @@ export class PathParser {
       }
 
       lastIndentLength = indent.length;
+      type = self ? 'selfdef' : type;
       items.push(new Member(type, name));
     }
 

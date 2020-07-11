@@ -8,6 +8,13 @@ export class Member {
     this.type = type;
     this.name = name;
   }
+
+  get separator(): string {
+    if (this.type === 'def') {
+      return '#';
+    }
+    return '::';
+  }
 }
 
 export class PathParser {
@@ -22,7 +29,7 @@ export class PathParser {
   }
 
   members() : Array<Member> {
-    const membersRegex = /^(?:\n*)(\s*)(class|module)(?:\s+)(\w+)/gm;
+    const membersRegex = /^(?:\n*)(\s*)(class|module|def)(?:\s+)(\w+)/gm;
     const matches = this.source.matchAll(membersRegex);
 
     const items : Array<Member> = [];

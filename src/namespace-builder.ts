@@ -1,6 +1,6 @@
 // import * as vscode from 'vscode';
 
-import { PathParser } from "./path-parser";
+import { PathParser, Member } from "./path-parser";
 
 export class NamespaceBuilder {
   source: string;
@@ -12,6 +12,8 @@ export class NamespaceBuilder {
   }
 
   build() : string {
-    return this.parser.parse().map(m => m.name).join('::');
+    const [first, ...others] : Array<Member> = this.parser.parse();
+    const parts = others.map(member => [member.separator, member.name]);
+    return [first.name].concat(...parts).join('');
   }
 }

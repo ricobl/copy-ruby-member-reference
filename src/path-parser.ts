@@ -10,7 +10,7 @@ export class Member {
   }
 }
 
-export class ReferenceParser {
+export class PathParser {
   source: string;
 
   constructor(source: string) {

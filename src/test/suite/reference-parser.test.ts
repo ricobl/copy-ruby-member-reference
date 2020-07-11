@@ -27,4 +27,14 @@ suite.only('ReferenceParser', () => {
     ].join('\n');
     parseEquals(source, ['Mod', 'Klass']);
   });
+
+	test('only considers the last member on a level', () => {
+    let source = [
+      'module Mod',
+      '  class FirstKlass',
+      '  end',
+      '  class LastKlass'
+    ].join('\n');
+    parseEquals(source, ['Mod', 'LastKlass']);
+  });
 });

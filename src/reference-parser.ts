@@ -1,5 +1,15 @@
 // import * as vscode from 'vscode';
 
+export class Member {
+  type: string;
+  name: string;
+
+  constructor(type: string, name: string) {
+    this.type = type;
+    this.name = name;
+  }
+}
+
 export class ReferenceParser {
   source: string;
 
@@ -7,19 +17,19 @@ export class ReferenceParser {
     this.source = source;
   }
 
-  parse() : Array<string> {
+  parse() : Array<Member> {
     return this.members();
   }
 
-  members() : Array<string> {
+  members() : Array<Member> {
     const membersRegex = /^(?:\n*)(\s*)(class|module)(?:\s+)(\w+)/gm;
     const matches = this.source.matchAll(membersRegex);
 
-    const items : Array<string> = [];
+    const items : Array<Member> = [];
     let lastIndentLength = 0;
     let indentLevel = 0;
 
-    for (let [_match, indent, _type, name] of matches) {
+    for (let [_match, indent, type, name] of matches) {
       // Remove any previous items on the same level
       if (lastIndentLength === indent.length) {
         items.splice(indentLevel);
@@ -30,9 +40,8 @@ export class ReferenceParser {
       }
 
       lastIndentLength = indent.length;
-      items.push(name);
+      items.push(new Member(type, name));
     }
-
 
     return items;
   }

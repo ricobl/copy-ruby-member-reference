@@ -1,23 +1,23 @@
 import * as assert from 'assert';
-import { ReferenceParser } from '../../reference-parser';
+import { ReferenceParser, Member } from '../../reference-parser';
 
 suite.only('ReferenceParser', () => {
-  function parseEquals(source: string, expected: Array<string>) {
+  function parseEquals(source: string, expected: Array<Member>) {
     let parser = new ReferenceParser(source);
     let result = parser.parse();
     assert.deepEqual(result, expected);
   }
 
 	test('parses simple module', () => {
-    parseEquals('module Mod', ['Mod']);
+    parseEquals('module Mod', [new Member('module', 'Mod')]);
   });
 
 	test('parses simple class', () => {
-    parseEquals('class Klass', ['Klass']);
+    parseEquals('class Klass', [new Member('class', 'Klass')]);
   });
 
 	test('parses inherited class', () => {
-    parseEquals('class Klass < Base', ['Klass']);
+    parseEquals('class Klass < Base', [new Member('class', 'Klass')]);
   });
 
 	test('parses nested members', () => {
@@ -25,7 +25,7 @@ suite.only('ReferenceParser', () => {
       'module Mod',
       '  class Klass'
     ].join('\n');
-    parseEquals(source, ['Mod', 'Klass']);
+    parseEquals(source, [new Member('module', 'Mod'), new Member('class', 'Klass')]);
   });
 
 	test('only considers the last member on a level', () => {
@@ -35,6 +35,6 @@ suite.only('ReferenceParser', () => {
       '  end',
       '  class LastKlass'
     ].join('\n');
-    parseEquals(source, ['Mod', 'LastKlass']);
+    parseEquals(source, [new Member('module', 'Mod'), new Member('class', 'LastKlass')]);
   });
 });

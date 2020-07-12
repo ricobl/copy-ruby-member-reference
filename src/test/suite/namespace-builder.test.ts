@@ -28,6 +28,14 @@ suite.only('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass');
   });
 
+	test('handles namespaces', () => {
+    let source = [
+      'module Mod::SubMod',
+      '  class Klass'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::SubMod::Klass');
+  });
+
 	test('handles instance methods', () => {
     let source = [
       'module Mod',

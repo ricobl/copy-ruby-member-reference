@@ -32,7 +32,7 @@ export class PathParser {
   }
 
   members() : Array<Member> {
-    const membersRegex = /^(?:\n*)(\s*)(class|module|def)(?:\s+)(self\.)?(\w+)/gm;
+    const membersRegex = /^(?:\n*)(\s*)(class|module|def)(?:\s+)(self\.)?([\w:]+)/gm;
     const matches = this.source.matchAll(membersRegex);
 
     const items : Array<Member> = [];

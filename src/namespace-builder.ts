@@ -12,7 +12,12 @@ export class NamespaceBuilder {
   }
 
   build() : string {
-    const [first, ...others] : Array<Member> = this.parser.parse();
+    const members = this.parser.parse();
+    if (members.length === 0) {
+      return '';
+    }
+
+    const [first, ...others] : Array<Member> = members;
     const parts = others.map(member => [member.separator, member.name]);
     return [first.name].concat(...parts).join('');
   }

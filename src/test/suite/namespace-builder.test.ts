@@ -72,4 +72,8 @@ suite.only('NamespaceBuilder', () => {
     ].join('\n');
     namespaceEquals(source, 'Mod::Klass');
   });
+
+	test('ignores empty', () => {
+    namespaceEquals('', '');
+  });
 });

@@ -1,24 +1,52 @@
 // import * as vscode from 'vscode';
 
+interface MemberOptions {
+  type: string;
+  name: string;
+  separator: string;
+}
+
 export class Member {
   type: string;
   name: string;
+  separator: string;
 
-  constructor(type: string, name: string) {
+  constructor({type, name, separator} : MemberOptions) {
     this.type = type;
     this.name = name;
-  }
-
-  get separator(): string {
-    if (this.type === 'def') {
-      return '#';
-    }
-    else if (this.type === 'selfdef') {
-      return '.';
-    }
-    return '::';
+    this.separator = separator;
   }
 }
+
+interface MatcherOptions {
+  type: string;
+  expression: string;
+  separator?: string;
+}
+
+class Matcher {
+  type: string;
+  expression: string;
+  separator: string;
+
+  constructor({type, expression, separator='::'}: MatcherOptions) {
+    this.type = type;
+    this.expression = expression;
+    this.separator = separator;
+  }
+
+  matchLine(line: string) : RegExpMatchArray | null {
+    const regex = new RegExp(this.expression);
+    return line.match(regex);
+  }
+}
+
+const MATCHERS = [
+  new Matcher({type: 'class', expression: 'class\\s+([\\w:]+)'}),
+  new Matcher({type: 'module', expression: 'module\\s+([\\w:]+)'}),
+  new Matcher({type: 'class_method', expression: 'def\\s+self\.([\\w:]+)', separator: '.'}),
+  new Matcher({type: 'instance_method', expression: 'def\\s+([\\w:]+)', separator: '#'}),
+];
 
 export class PathParser {
   source: string;
@@ -31,15 +59,38 @@ export class PathParser {
     return this.members();
   }
 
+  matchingLines() : IterableIterator<RegExpMatchArray> {
+    const combinedMatchersExpression = MATCHERS.map(m => m.expression).join('|');
+    const linesExpression = new RegExp(
+      `^(?:\\n*)(\\s*)(${combinedMatchersExpression})`,
+      'gm'
+    );
+    return this.source.matchAll(linesExpression);
+  }
+
   members() : Array<Member> {
-    const membersRegex = /^(?:\n*)(\s*)(class|module|def)(?:\s+)(self\.)?([\w:]+)/gm;
-    const matches = this.source.matchAll(membersRegex);
+    const matches = this.matchingLines();
 
     const items : Array<Member> = [];
     let lastIndentLength = 0;
     let indentLevel = 0;
+    let lineMatcher;
+    let name;
+    let match;
 
-    for (let [_match, indent, type, self, name] of matches) {
+    for (let [_match, indent, line] of matches) {
+      lineMatcher = this.lineMatcher(line);
+      if (!lineMatcher) {
+        continue;
+      };
+
+      match = lineMatcher.matchLine(line);
+      if (!match) {
+        continue;
+      };
+
+      name = match[1];
+
       // Remove any previous items on the same level
       if (lastIndentLength === indent.length) {
         items.splice(indentLevel);
@@ -50,10 +101,18 @@ export class PathParser {
       }
 
       lastIndentLength = indent.length;
-      type = self ? 'selfdef' : type;
-      items.push(new Member(type, name));
+
+      items.push(new Member({
+        type: lineMatcher.type,
+        name: name,
+        separator: lineMatcher.separator
+      }));
     }
 
     return items;
+  }
+
+  lineMatcher(line: string): Matcher | undefined {
+    return MATCHERS.find(m => m.matchLine(line) !== null);
   }
 }

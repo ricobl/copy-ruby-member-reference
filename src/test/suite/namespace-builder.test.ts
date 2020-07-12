@@ -63,4 +63,13 @@ suite.only('NamespaceBuilder', () => {
     ].join('\n');
     namespaceEquals(source, 'Mod::LastKlass');
   });
+
+	test('ignores comments', () => {
+    let source = [
+      'module Mod',
+      '  // class Comment',
+      '  class Klass'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass');
+  });
 });

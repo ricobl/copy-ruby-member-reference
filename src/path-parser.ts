@@ -35,9 +35,19 @@ class Matcher {
     this.separator = separator;
   }
 
-  matchLine(line: string) : RegExpMatchArray | null {
+  matchLine(line: string) : Member | null {
     const regex = new RegExp(this.expression);
-    return line.match(regex);
+    const match = line.match(regex);
+    if (!match) {
+      return null;
+    }
+
+    const [_, name] = match;
+    return new Member({
+      type: this.type,
+      name: name || '',
+      separator: this.separator
+    });
   }
 }
 
@@ -76,8 +86,7 @@ export class PathParser {
     let lastIndentLength = 0;
     let indentLevel = 0;
     let lineMatcher;
-    let name;
-    let match;
+    let member;
 
     for (let [_match, indent, line] of matches) {
       lineMatcher = this.lineMatcher(line);
@@ -85,12 +94,10 @@ export class PathParser {
         continue;
       };
 
-      match = lineMatcher.matchLine(line);
-      if (!match) {
+      member = lineMatcher.matchLine(line);
+      if (!member) {
         continue;
       };
-
-      name = match[1];
 
       // Remove any previous items on the same level
       if (lastIndentLength === indent.length) {
@@ -102,12 +109,7 @@ export class PathParser {
       }
 
       lastIndentLength = indent.length;
-
-      items.push(new Member({
-        type: lineMatcher.type,
-        name: name,
-        separator: lineMatcher.separator
-      }));
+      items.push(member);
     }
 
     return items;

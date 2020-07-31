@@ -54,6 +54,15 @@ suite.only('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass.class_m');
   });
 
+	test('handles constants', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    CONSTANT = "aaa"'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass::CONSTANT');
+  });
+
 	test('only considers the last member on a level', () => {
     let source = [
       'module Mod',

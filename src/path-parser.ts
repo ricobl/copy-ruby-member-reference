@@ -85,16 +85,10 @@ export class PathParser {
     const items : Array<Member> = [];
     let lastIndentLength = 0;
     let indentLevel = 0;
-    let lineMatcher;
     let member;
 
     for (let [_match, indent, line] of matches) {
-      lineMatcher = this.lineMatcher(line);
-      if (!lineMatcher) {
-        continue;
-      };
-
-      member = lineMatcher.matchLine(line);
+      member = this.matchMember(line);
       if (!member) {
         continue;
       };
@@ -115,7 +109,9 @@ export class PathParser {
     return items;
   }
 
-  lineMatcher(line: string): Matcher | undefined {
-    return MATCHERS.find(m => m.matchLine(line) !== null);
+  matchMember(line: string): Member | undefined {
+    let member;
+    MATCHERS.find(m => member = m.matchLine(line));
+    return member;
   }
 }

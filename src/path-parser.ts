@@ -99,7 +99,7 @@ export class PathParser {
       }
       // Otherwise, indent is either increasing or decreasing
       else {
-        indentLevel += (lastIndentLength > indent.length) ? 1 : -1;
+        indentLevel += (lastIndentLength > indent.length) ? -1 : 1;
       }
 
       lastIndentLength = indent.length;

@@ -63,7 +63,7 @@ suite.only('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass::CONSTANT');
   });
 
-	test('only considers the last member on a level', () => {
+	test('ignores previous class on the same level', () => {
     let source = [
       'module Mod',
       '  class FirstKlass',
@@ -71,6 +71,25 @@ suite.only('NamespaceBuilder', () => {
       '  class LastKlass'
     ].join('\n');
     namespaceEquals(source, 'Mod::LastKlass');
+  });
+
+	test('ignores constant on the same level of class', () => {
+    let source = [
+      'module Mod',
+      '  CONSTANT = 123',
+      '  class LastKlass'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::LastKlass');
+  });
+
+	test('ignores constant on the same level of instance method', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    CONSTANT = 123',
+      '    def instance_m'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass#instance_m');
   });
 
 	test('ignores comments', () => {

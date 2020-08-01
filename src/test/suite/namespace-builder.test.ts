@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { NamespaceBuilder } from '../../namespace-builder';
 
-suite.only('NamespaceBuilder', () => {
+suite('NamespaceBuilder', () => {
   function namespaceEquals(source: string, expected: string) {
     let builder = new NamespaceBuilder(source);
     let result = builder.build();

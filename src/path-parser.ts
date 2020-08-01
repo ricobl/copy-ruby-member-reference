@@ -61,13 +61,18 @@ const MATCHERS = [
 
 export class PathParser {
   source: string;
+  memberPath: Array<Member> = [];
+  lastIndentLength: number = 0;
+  indentLevel: number = 0;
+  currentMember: Member | undefined;
 
   constructor(source: string) {
     this.source = source;
   }
 
   parse() : Array<Member> {
-    return this.members();
+    this.buildMemberPath();
+    return this.memberPath;
   }
 
   matchingLines() : IterableIterator<RegExpMatchArray> {
@@ -79,39 +84,44 @@ export class PathParser {
     return this.source.matchAll(linesExpression);
   }
 
-  members() : Array<Member> {
-    const matches = this.matchingLines();
-
-    const items : Array<Member> = [];
-    let lastIndentLength = 0;
-    let indentLevel = 0;
-    let member;
-
-    for (let [_match, indent, line] of matches) {
-      member = this.matchMember(line);
-      if (!member) {
+  buildMemberPath() {
+    for (let [_match, indent, line] of this.matchingLines()) {
+      this.currentMember = this.nextMember(line);
+      if (!this.currentMember) {
         continue;
-      };
-
-      // Remove any previous items on the same level
-      if (lastIndentLength === indent.length) {
-        items.splice(indentLevel);
       }
-      // Otherwise, indent is either increasing or decreasing
+
+      if (this.lastIndentLength === indent.length) {
+        this.removeMembersOnCurrentLevel();
+      }
+      else if (this.lastIndentLength > indent.length) {
+        this.dedent();
+      }
       else {
-        indentLevel += (lastIndentLength > indent.length) ? -1 : 1;
+        this.indent();
       }
 
-      lastIndentLength = indent.length;
-      items.push(member);
-    }
+      this.lastIndentLength = indent.length;
 
-    return items;
+      this.memberPath.push(this.currentMember);
+    }
   }
 
-  matchMember(line: string): Member | undefined {
+  nextMember(line: string): Member | undefined {
     let member;
     MATCHERS.find(m => member = m.matchLine(line));
     return member;
+  }
+
+  removeMembersOnCurrentLevel() {
+    this.memberPath.splice(this.indentLevel);
+  }
+
+  indent() {
+    this.indentLevel++;
+  }
+
+  dedent() {
+    this.indentLevel--;
   }
 }

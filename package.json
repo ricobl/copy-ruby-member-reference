@@ -4,6 +4,7 @@
   "description": "Copies full namespace path for references under the cursor",
   "version": "1.0.0",
   "author": "Enrico Luz",
+  "publisher": "ricobl",
   "license": "MIT",
   "engines": {
     "vscode": "^1.46.0"

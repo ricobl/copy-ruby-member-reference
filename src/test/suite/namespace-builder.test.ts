@@ -58,9 +58,9 @@ suite('NamespaceBuilder', () => {
     let source = [
       'module Mod',
       '  class Klass',
-      '    CONSTANT = "aaa"'
+      '    A_CONSTANT = "aaa"'
     ].join('\n');
-    namespaceEquals(source, 'Mod::Klass::CONSTANT');
+    namespaceEquals(source, 'Mod::Klass::A_CONSTANT');
   });
 
 	test('ignores previous class on the same level', () => {

@@ -1,65 +1,41 @@
-# copy-ruby-member-reference README
+# Copy Ruby Member Reference
 
-This is the README for your extension "copy-ruby-member-reference". After writing up a brief description, we recommend including the following sections.
+Allows copying the Ruby member reference under the cursor to the clipboard.
+
+It has a simple built-in regex-based parser that supports most common scenarios: modules, classes, instance methods, class methods and constants.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* **Copy Ruby Member Reference** command: will copy the current reference to the clipboard.
 
-For example if there is an image subfolder under your extension project workspace:
+## Keyboard shortcut
 
-\!\[feature X\]\(images/feature-x.png\)
+No keyboard shortcut is provided at the moment to prevent conflicts with other extensions. Suggested usage is via the command palette, typically pressing Cmd+Shift+P / Ctrl+Shift+P and typing the command name.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+Follow the [keybindings documentation](https://code.visualstudio.com/docs/getstarted/keybindings) to map the `copy-ruby-member-reference.copyReference` command to your own keybinding.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Some class methods definitions are not understood by the extension and might be copied as instance methods, these patterns include:
+
+* `class << self`
+* `extend self`
+* `module_function`
+
+Parsing currently relies on proper indentation levels.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Please see the [changelog](CHANGELOG.md).
 
-### 1.0.0
+## Why another extension?
 
-Initial release of ...
+Other existing extensions wouldn't cover scenarios that I needed and I wanted to some fun writing my own extension and use the opportunity learn Typescript.
 
-### 1.0.1
+## Development
 
-Fixed issue #.
+### Running tests
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+* Open the debug viewlet (`Ctrl+Shift+D` or `Cmd+Shift+D` on Mac) and from the launch configuration dropdown pick `Extension Tests`.
+* Press `F5` to run the tests in a new window with your extension loaded.
+* See the output of the test result in the debug console.

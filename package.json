@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "author": "Enrico Luz",
   "publisher": "ricobl",
+  "repository": "https://github.com/ricobl/copy-ruby-member-reference.git",
   "license": "MIT",
   "engines": {
     "vscode": "^1.46.0"

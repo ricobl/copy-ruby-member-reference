@@ -2,7 +2,9 @@
   "name": "copy-ruby-member-reference",
   "displayName": "Copy Ruby Member Reference",
   "description": "Copies full namespace path for references under the cursor",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "author": "Enrico Luz",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.46.0"
   },

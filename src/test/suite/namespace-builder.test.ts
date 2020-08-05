@@ -92,6 +92,18 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass#instance_m');
   });
 
+	test('properly handles dedents', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    def method',
+      '      other_var = "bbb"',
+      '    end',
+      '    def other_method'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass#other_method');
+  });
+
 	test('ignores comments', () => {
     let source = [
       'module Mod',

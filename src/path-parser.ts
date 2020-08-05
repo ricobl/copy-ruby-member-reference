@@ -94,6 +94,7 @@ export class PathParser {
       }
       else if (this.lastIndentLength > indent.length) {
         this.dedent();
+        this.removeMembersOnCurrentLevel();
       }
       else {
         this.indent();

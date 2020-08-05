@@ -4,6 +4,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 1.0.3
+
+- Handle dedents properly
+- Handle class assignments
+
 ## 1.0.2
 
 - Provide the whole current line to builder/parser

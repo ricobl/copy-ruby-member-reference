@@ -16,7 +16,13 @@ export default function getMemberReference() {
     return;
   }
 
-  const linesUpToSelection = document.getText(new Range(new Position(0, 0), currentWordSelection.end));
+  const currentLineNumber = selection.start.line;
+  const currentLine = document.lineAt(currentLineNumber);
+
+  const linesUpToSelection = document.getText(new Range(
+    new Position(0, 0),
+    new Position(currentLineNumber, currentLine.text.length),
+  ));
   const builder = new NamespaceBuilder(linesUpToSelection);
   return builder.build();
 }

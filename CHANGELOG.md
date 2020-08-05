@@ -4,6 +4,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 1.0.2
+
+- Provide the whole current line to builder/parser
+
 ## 1.0.1
 
 - Fix parser not picking up constants with underscores

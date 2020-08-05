@@ -63,6 +63,15 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass::A_CONSTANT');
   });
 
+	test('handles dynamic class assignments', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    DynKlass = Class.new'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass::DynKlass');
+  });
+
 	test('ignores previous class on the same level', () => {
     let source = [
       'module Mod',

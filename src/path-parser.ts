@@ -54,7 +54,7 @@ const MATCHERS = [
   new Matcher({type: 'module', expression: 'module\\s+([\\w:]+)'}),
   new Matcher({type: 'class_method', expression: 'def\\s+self\.([\\w:]+)', separator: '.'}),
   new Matcher({type: 'instance_method', expression: 'def\\s+([\\w:]+)', separator: '#'}),
-  new Matcher({type: 'constant', expression: '([A-Z_]+)\\s+='}),
+  new Matcher({type: 'constant', expression: '([A-Z][\\w]*)\\s+='}),
 ];
 
 export class PathParser {

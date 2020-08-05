@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## 1.0.4
 
 - Handle class methods under `class << self`
+- Resolve [CVE-2020-8203](https://github.com/advisories/GHSA-p6mc-m468-83gw)
 
 ## 1.0.3
 

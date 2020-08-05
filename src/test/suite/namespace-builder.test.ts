@@ -8,19 +8,19 @@ suite('NamespaceBuilder', () => {
     assert.deepEqual(result, expected);
   }
 
-	test('handles simple module', () => {
+  test('handles simple module', () => {
     namespaceEquals('module Mod', 'Mod');
   });
 
-	test('handles simple class', () => {
+  test('handles simple class', () => {
     namespaceEquals('class Klass', 'Klass');
   });
 
-	test('handles inherited class', () => {
+  test('handles inherited class', () => {
     namespaceEquals('class Klass < Base', 'Klass');
   });
 
-	test('handles nested members', () => {
+  test('handles nested members', () => {
     let source = [
       'module Mod',
       '  class Klass'
@@ -28,7 +28,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass');
   });
 
-	test('handles namespaces', () => {
+  test('handles namespaces', () => {
     let source = [
       'module Mod::SubMod',
       '  class Klass'
@@ -36,7 +36,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::SubMod::Klass');
   });
 
-	test('handles instance methods', () => {
+  test('handles instance methods', () => {
     let source = [
       'module Mod',
       '  class Klass',
@@ -45,7 +45,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass#instance_m');
   });
 
-	test('handles class methods', () => {
+  test('handles class methods', () => {
     let source = [
       'module Mod',
       '  class Klass',
@@ -54,7 +54,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass.class_m');
   });
 
-	test('handles constants', () => {
+  test('handles constants', () => {
     let source = [
       'module Mod',
       '  class Klass',
@@ -63,7 +63,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass::A_CONSTANT');
   });
 
-	test('handles dynamic class assignments', () => {
+  test('handles dynamic class assignments', () => {
     let source = [
       'module Mod',
       '  class Klass',
@@ -72,7 +72,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass::DynKlass');
   });
 
-	test('ignores previous class on the same level', () => {
+  test('ignores previous class on the same level', () => {
     let source = [
       'module Mod',
       '  class FirstKlass',
@@ -82,7 +82,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::LastKlass');
   });
 
-	test('ignores constant on the same level of class', () => {
+  test('ignores constant on the same level of class', () => {
     let source = [
       'module Mod',
       '  CONSTANT = 123',
@@ -91,7 +91,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::LastKlass');
   });
 
-	test('ignores constant on the same level of instance method', () => {
+  test('ignores constant on the same level of instance method', () => {
     let source = [
       'module Mod',
       '  class Klass',
@@ -101,7 +101,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass#instance_m');
   });
 
-	test('properly handles dedents', () => {
+  test('properly handles dedents', () => {
     let source = [
       'module Mod',
       '  class Klass',
@@ -113,7 +113,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass#other_method');
   });
 
-	test('ignores comments', () => {
+  test('ignores comments', () => {
     let source = [
       'module Mod',
       '  // class Comment',
@@ -122,7 +122,7 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass');
   });
 
-	test('ignores empty', () => {
+  test('ignores empty', () => {
     namespaceEquals('', '');
   });
 });

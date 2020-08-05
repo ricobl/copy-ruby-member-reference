@@ -18,7 +18,6 @@ Follow the [keybindings documentation](https://code.visualstudio.com/docs/getsta
 
 Some class methods definitions are not understood by the extension and might be copied as instance methods, these patterns include:
 
-* `class << self`
 * `extend self`
 * `module_function`
 

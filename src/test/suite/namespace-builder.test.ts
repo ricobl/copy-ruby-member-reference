@@ -54,6 +54,28 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass.class_m');
   });
 
+  test('handles class methods under `class << self`', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    class << self',
+      '      def class_m'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass.class_m');
+  });
+
+  test('handles class methods under `class << self` with extra noise', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    SOMETHING = "AAA"',
+      '    class << self',
+      '      ELSE = "AAA"',
+      '      def class_m'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass.class_m');
+  });
+
   test('handles constants', () => {
     let source = [
       'module Mod',

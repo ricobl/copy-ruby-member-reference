@@ -20,23 +20,30 @@ interface MatcherOptions {
   type: string;
   expression: string;
   separator?: string;
+  requiredParent?: string;
 }
 
 class Matcher {
   type: string;
   expression: string;
   separator: string;
+  requiredParent: string | undefined;
 
-  constructor({type, expression, separator='::'}: MatcherOptions) {
+  constructor({type, expression, separator='::', requiredParent}: MatcherOptions) {
     this.type = type;
     this.expression = expression;
     this.separator = separator;
+    this.requiredParent = requiredParent;
   }
 
-  matchLine(line: string) : Member | null {
+  matchLine(line: string, parent: Member | undefined) : Member | null {
     const regex = new RegExp(this.expression);
     const match = line.match(regex);
     if (!match) {
+      return null;
+    }
+
+    if (!this.matchesRequiredParent(parent)) {
       return null;
     }
 
@@ -47,12 +54,26 @@ class Matcher {
       separator: this.separator
     });
   }
+
+  matchesRequiredParent(parent: Member | undefined) : Boolean {
+    if (!parent || !this.requiredParent) {
+      return true;
+    }
+    return (this.requiredParent === parent.type);
+  }
 }
 
 const MATCHERS = [
   new Matcher({type: 'class', expression: 'class\\s+([\\w:]+)'}),
   new Matcher({type: 'module', expression: 'module\\s+([\\w:]+)'}),
   new Matcher({type: 'class_method', expression: 'def\\s+self\.([\\w:]+)', separator: '.'}),
+  new Matcher({type: 'class_self', expression: 'class << self', separator: ''}),
+  new Matcher({
+    type: 'class_self_method',
+    expression: 'def\\s+([\\w:]+)',
+    separator: '.',
+    requiredParent: 'class_self',
+  }),
   new Matcher({type: 'instance_method', expression: 'def\\s+([\\w:]+)', separator: '#'}),
   new Matcher({type: 'constant', expression: '([A-Z][\\w]*)\\s+='}),
 ];
@@ -84,11 +105,6 @@ export class PathParser {
 
   buildMemberPath() {
     for (let [_match, indent, line] of this.matchingLines()) {
-      this.currentMember = this.nextMember(line);
-      if (!this.currentMember) {
-        continue;
-      }
-
       if (this.lastIndentLength === indent.length) {
         this.removeMembersOnCurrentLevel();
       }
@@ -99,17 +115,25 @@ export class PathParser {
       else {
         this.indent();
       }
-
       this.lastIndentLength = indent.length;
+
+      this.currentMember = this.nextMember(line, this.parentMember());
+      if (!this.currentMember) {
+        continue;
+      }
 
       this.memberPath.push(this.currentMember);
     }
   }
 
-  nextMember(line: string): Member | undefined {
+  nextMember(line: string, parent: Member | undefined): Member | undefined {
     let member;
-    MATCHERS.find(m => member = m.matchLine(line));
+    MATCHERS.find(m => member = m.matchLine(line, parent));
     return member;
+  }
+
+  parentMember(): Member | undefined {
+    return this.memberPath[this.memberPath.length - 1];
   }
 
   removeMembersOnCurrentLevel() {

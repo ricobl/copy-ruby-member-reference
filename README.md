@@ -17,7 +17,7 @@ Follow the [keybindings documentation](https://code.visualstudio.com/docs/getsta
 
 ## Known Issues
 
-Some class methods definitions are not understood by the extension and might be copied as instance methods, these patterns include:
+Some class method definitions are not understood by the extension and might be copied as instance methods, these patterns include:
 
 * `extend self`
 * `module_function`
@@ -30,7 +30,7 @@ Please see the [changelog](CHANGELOG.md).
 
 ## Why another extension?
 
-Other existing extensions wouldn't cover scenarios that I needed and I wanted to some fun writing my own extension and use the opportunity learn Typescript.
+Other existing extensions wouldn't cover scenarios that I needed and I wanted to have some fun writing my own extension and also used the opportunity learn Typescript.
 
 ## Development
 

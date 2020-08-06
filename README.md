@@ -1,4 +1,5 @@
-# Copy Ruby Member Reference
+<p align="center"><img src="https://raw.githubusercontent.com/ricobl/copy-ruby-member-reference/master/images/icon.png" height="128"></p>
+<h2 align="center">Copy Ruby Member Reference</h2>
 
 Allows copying the Ruby member reference under the cursor to the clipboard.
 

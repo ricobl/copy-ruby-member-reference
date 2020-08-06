@@ -7,6 +7,7 @@
   "publisher": "ricobl",
   "repository": "https://github.com/ricobl/copy-ruby-member-reference.git",
   "license": "MIT",
+  "icon": "https://raw.githubusercontent.com/ricobl/copy-ruby-member-reference/master/images/icon.png",
   "engines": {
     "vscode": "^1.46.0"
   },

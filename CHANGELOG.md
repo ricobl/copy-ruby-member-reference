@@ -4,6 +4,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 1.0.5
+
+- Include extension icon
+
 ## 1.0.4
 
 - Handle class methods under `class << self`

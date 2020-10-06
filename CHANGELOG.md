@@ -4,6 +4,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## 1.1.0
+
+- Support inline `private_class_method`
+- Use modal info messages as it makes it easier for dismissing using the keyboard
+
 ## 1.0.5
 
 - Include extension icon

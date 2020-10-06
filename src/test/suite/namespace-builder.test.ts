@@ -54,6 +54,15 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass.class_m');
   });
 
+  test('handles inline private class methods', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    private_class_method def self.class_m'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass.class_m');
+  });
+
   test('handles class methods under `class << self`', () => {
     let source = [
       'module Mod',

@@ -67,6 +67,11 @@ const MATCHERS = [
   new Matcher({type: 'class', expression: 'class\\s+([\\w:]+)'}),
   new Matcher({type: 'module', expression: 'module\\s+([\\w:]+)'}),
   new Matcher({type: 'class_method', expression: 'def\\s+self\.([\\w:]+)', separator: '.'}),
+  new Matcher({
+    type: 'inline_class_method',
+    expression: 'private_class_method def\\s+self\.([\\w:]+)',
+    separator: '.'
+  }),
   new Matcher({type: 'class_self', expression: 'class << self', separator: ''}),
   new Matcher({
     type: 'class_self_method',

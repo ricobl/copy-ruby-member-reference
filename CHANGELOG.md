@@ -5,6 +5,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Add support for method punctuation (e.g. `nil?`, `save!`, `name=`)
+- Add support for rake tasks and namespaces
 
 ## 1.1.0
 

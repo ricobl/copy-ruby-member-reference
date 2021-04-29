@@ -81,6 +81,13 @@ const MATCHERS = [
   }),
   new Matcher({type: 'instance_method', expression: 'def\\s+([\\w]+[!=\?]?)', separator: '#'}),
   new Matcher({type: 'constant', expression: '([A-Z][\\w]*)\\s+='}),
+  // Rake tasks
+  new Matcher({type: 'rake_namespace', expression: 'namespace \:([\\w]+)'}),
+  new Matcher({
+    type: 'rake_task',
+    expression: 'task \:?([\\w]+)',
+    separator: ':',
+  }),
 ];
 
 export class PathParser {

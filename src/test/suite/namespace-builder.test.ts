@@ -165,4 +165,31 @@ suite('NamespaceBuilder', () => {
   test('ignores empty', () => {
     namespaceEquals('', '');
   });
+
+  test('supports standalone rake tasks', () => {
+    let source = [
+      'desc "some description"',
+      'task :task_name do'
+    ].join('\n');
+    namespaceEquals(source, 'task_name');
+  });
+
+  test('supports rake tasks with a namespace', () => {
+    let source = [
+      'namespace :some_namespace do',
+      '  desc "some description"',
+      '  task :task_name do'
+    ].join('\n');
+    namespaceEquals(source, 'some_namespace:task_name');
+  });
+
+  test('supports rake tasks with dependencies', () => {
+    let source = [
+      'namespace :some_namespace do',
+      '  desc "some description"',
+      '  task task_name: "dependency" do'
+    ].join('\n');
+    namespaceEquals(source, 'some_namespace:task_name');
+  });
+
 });

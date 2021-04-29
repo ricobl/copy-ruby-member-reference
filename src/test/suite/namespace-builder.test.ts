@@ -5,7 +5,7 @@ suite('NamespaceBuilder', () => {
   function namespaceEquals(source: string, expected: string) {
     let builder = new NamespaceBuilder(source);
     let result = builder.build();
-    assert.deepEqual(result, expected);
+    assert.deepStrictEqual(result, expected);
   }
 
   test('handles simple module', () => {

@@ -45,6 +45,15 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass#instance_m');
   });
 
+  test('handles punctuation on methods', () => {
+    let source = [
+      'module Mod',
+      '  class Klass',
+      '    def instance_m?'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Klass#instance_m?');
+  });
+
   test('handles class methods', () => {
     let source = [
       'module Mod',

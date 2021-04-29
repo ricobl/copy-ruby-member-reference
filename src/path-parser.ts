@@ -66,20 +66,20 @@ class Matcher {
 const MATCHERS = [
   new Matcher({type: 'class', expression: 'class\\s+([\\w:]+)'}),
   new Matcher({type: 'module', expression: 'module\\s+([\\w:]+)'}),
-  new Matcher({type: 'class_method', expression: 'def\\s+self\.([\\w:]+)', separator: '.'}),
+  new Matcher({type: 'class_method', expression: 'def\\s+self\.([\\w]+[!=\?]?)', separator: '.'}),
   new Matcher({
     type: 'inline_class_method',
-    expression: 'private_class_method def\\s+self\.([\\w:]+)',
+    expression: 'private_class_method def\\s+self\.([\\w]+[!=\?]?)',
     separator: '.'
   }),
   new Matcher({type: 'class_self', expression: 'class << self', separator: ''}),
   new Matcher({
     type: 'class_self_method',
-    expression: 'def\\s+([\\w:]+)',
+    expression: 'def\\s+([\\w]+[!=\?]?)',
     separator: '.',
     requiredParent: 'class_self',
   }),
-  new Matcher({type: 'instance_method', expression: 'def\\s+([\\w:]+)', separator: '#'}),
+  new Matcher({type: 'instance_method', expression: 'def\\s+([\\w]+[!=\?]?)', separator: '#'}),
   new Matcher({type: 'constant', expression: '([A-Z][\\w]*)\\s+='}),
 ];
 

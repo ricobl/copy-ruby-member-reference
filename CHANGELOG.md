@@ -4,6 +4,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Add support for method punctuation (e.g. `nil?`, `save!`, `name=`)
+
 ## 1.1.0
 
 - Support inline `private_class_method`

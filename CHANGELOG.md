@@ -2,7 +2,9 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## Unreleased
+
+## 1.2.0
 
 - Add support for method punctuation (e.g. `nil?`, `save!`, `name=`)
 - Add support for rake tasks and namespaces

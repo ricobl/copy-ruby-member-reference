@@ -2,7 +2,7 @@
   "name": "copy-ruby-member-reference",
   "displayName": "Copy Ruby Member Reference",
   "description": "Copies full namespace path for references under the cursor",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Enrico Luz",
   "publisher": "ricobl",
   "repository": "https://github.com/ricobl/copy-ruby-member-reference.git",

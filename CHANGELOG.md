@@ -4,6 +4,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 1.3.0
+
+- [Fix security vulnerability with lodash](https://github.com/ricobl/copy-ruby-member-reference/pull/4)
+
 ## 1.2.0
 
 - Add support for method punctuation (e.g. `nil?`, `save!`, `name=`)

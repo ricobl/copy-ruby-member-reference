@@ -4,6 +4,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 1.3.1
+
+- Update dependencies to resolve [CVE-2021-3807](https://github.com/advisories/GHSA-93q8-gq69-wqmw)
+- Update extension development config based on latest Yeoman generator
+
 ## 1.3.0
 
 - [Fix security vulnerability with lodash](https://github.com/ricobl/copy-ruby-member-reference/pull/4)

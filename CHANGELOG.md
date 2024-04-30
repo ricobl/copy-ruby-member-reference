@@ -4,6 +4,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 1.3.3
+
+- Update a bunch of dependencies to address vulnerabilities
+
 ## 1.3.2
 
 - Update extension development config based on latest Yeoman generator (again)

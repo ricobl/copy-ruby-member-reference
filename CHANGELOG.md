@@ -4,6 +4,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 1.3.4
+
+- Update dependencies to address vulnerabilities
+- Reset project structure using the latest VSCode extension generator
+  - includes migrating to esbuild
+
 ## 1.3.3
 
 - Update a bunch of dependencies to address vulnerabilities

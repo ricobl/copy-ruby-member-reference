@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { NamespaceBuilder } from '../../namespace-builder';
+import { NamespaceBuilder } from '../../namespace-builder.js';
 
 suite('NamespaceBuilder', () => {
   function namespaceEquals(source: string, expected: string) {

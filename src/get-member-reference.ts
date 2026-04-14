@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { Range, Position } from 'vscode';
 
-import { NamespaceBuilder } from './namespace-builder';
+import { NamespaceBuilder } from './namespace-builder.js';
 
 export default function getMemberReference() {
   const editor = vscode.window.activeTextEditor;

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import * as clipboardy from 'clipboardy';
+import clipboard from 'clipboardy';
 
-import getMemberReference from './get-member-reference';
+import getMemberReference from './get-member-reference.js';
 
 export default function copyMemberReference() {
   const memberReference = getMemberReference();
@@ -10,7 +10,7 @@ export default function copyMemberReference() {
     return;
   }
 
-  clipboardy.writeSync(memberReference);
+  clipboard.writeSync(memberReference);
 
   vscode.window.showInformationMessage(`${memberReference} copied to clipboard`, {modal: true});
 }

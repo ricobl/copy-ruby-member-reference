@@ -1,4 +1,4 @@
-const esbuild = require("esbuild");
+import esbuild from "esbuild";
 
 const production = process.argv.includes("--production");
 const watch = process.argv.includes("--watch");
@@ -17,7 +17,7 @@ const esbuildProblemMatcherPlugin = {
       result.errors.forEach(({ text, location }) => {
         console.error(`✘ [ERROR] ${text}`);
         console.error(
-          `    ${location.file}:${location.line}:${location.column}:`
+          `    ${location.file}:${location.line}:${location.column}:`,
         );
       });
       console.log("[watch] build finished");

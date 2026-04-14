@@ -1,6 +1,6 @@
 // import * as vscode from 'vscode';
 
-import { PathParser, Member } from "./path-parser";
+import { PathParser, Member } from "./path-parser.js";
 
 export class NamespaceBuilder {
   source: string;

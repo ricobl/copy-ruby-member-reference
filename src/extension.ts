@@ -1,6 +1,6 @@
 import { ExtensionContext, commands } from 'vscode';
 
-import copyMemberReference from './copy-member-reference';
+import copyMemberReference from './copy-member-reference.js';
 
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(

@@ -4,6 +4,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 1.4.0
+
+- Convert package to ES module
+- Update dependencies to address vulnerabilities
+  - Force serialize-javascript resolution to 7.x
+  - Bump js-yaml, eslint, esbuild, shell-quote, picomatch, flatted, and clipboardy
+
 ## 1.3.4
 
 - Update dependencies to address vulnerabilities

@@ -4,6 +4,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 1.5.0
+
+- Remove clipboardy dependency in favour of native VSCode clipboard API
+- Fix import issues
+
 ## 1.4.0
 
 - Convert package to ES module

@@ -7,7 +7,7 @@ It has a simple built-in regex-based parser that supports most common scenarios:
 
 ## Features
 
-* **Copy Ruby Member Reference** command: will copy the current reference to the clipboard.
+- **Copy Ruby Member Reference** command: will copy the current reference to the clipboard.
 
 ## Keyboard shortcut
 
@@ -19,8 +19,8 @@ Follow the [keybindings documentation](https://code.visualstudio.com/docs/getsta
 
 Some class method definitions are not understood by the extension and might be copied as instance methods, these patterns include:
 
-* `extend self`
-* `module_function`
+- `extend self`
+- `module_function`
 
 Parsing currently relies on proper indentation levels.
 
@@ -36,6 +36,14 @@ Other existing extensions wouldn't cover scenarios that I needed and I wanted to
 
 ### Running tests
 
-* Open the debug viewlet (`Ctrl+Shift+D` or `Cmd+Shift+D` on Mac) and from the launch configuration dropdown pick `Extension Tests`.
-* Press `F5` to run the tests in a new window with your extension loaded.
-* See the output of the test result in the debug console.
+- Open the debug viewlet (`Ctrl+Shift+D` or `Cmd+Shift+D` on Mac) and from the launch configuration dropdown pick `Extension Tests`.
+- Press `F5` to run the tests in a new window with your extension loaded.
+- See the output of the test result in the debug console.
+
+### Releasing
+
+1. Bump version: `npm version [patch|minor|major]`
+2. Update the version in `package.json`
+3. Add release notes in `CHANGELOG.md`
+4. Commit and merge your branch to `main`
+5. Publish: `npx vsce publish`

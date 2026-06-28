@@ -7,7 +7,6 @@
   "publisher": "ricobl",
   "repository": "https://github.com/ricobl/copy-ruby-member-reference.git",
   "license": "MIT",
-  "type": "module",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.95.0"
@@ -29,11 +28,11 @@
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
-    "compile": "yarn run check-types && yarn run lint && node esbuild.js",
+    "compile": "yarn run check-types && yarn run lint && node esbuild.mjs",
     "watch": "npm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
+    "watch:esbuild": "node esbuild.mjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "yarn run check-types && yarn run lint && node esbuild.js --production",
+    "package": "yarn run check-types && yarn run lint && node esbuild.mjs --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",

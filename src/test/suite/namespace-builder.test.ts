@@ -94,6 +94,72 @@ suite('NamespaceBuilder', () => {
     namespaceEquals(source, 'Mod::Klass.class_m');
   });
 
+  test('handles methods after `extend self`', () => {
+    let source = [
+      'module Mod',
+      '  extend self',
+      '  def foo'
+    ].join('\n');
+    namespaceEquals(source, 'Mod.foo');
+  });
+
+  test('handles methods after `module_function`', () => {
+    let source = [
+      'module Mod',
+      '  module_function',
+      '  def foo'
+    ].join('\n');
+    namespaceEquals(source, 'Mod.foo');
+  });
+
+  test('handles multiple methods after `extend self`', () => {
+    let source = [
+      'module Mod',
+      '  extend self',
+      '  def foo',
+      '  def bar'
+    ].join('\n');
+    namespaceEquals(source, 'Mod.bar');
+  });
+
+  test('handles `extend self` in a class', () => {
+    let source = [
+      'class Klass',
+      '  extend self',
+      '  def class_m'
+    ].join('\n');
+    namespaceEquals(source, 'Klass.class_m');
+  });
+
+  test('handles `module_function` in a class', () => {
+    let source = [
+      'class Klass',
+      '  module_function',
+      '  def class_m'
+    ].join('\n');
+    namespaceEquals(source, 'Klass.class_m');
+  });
+
+  test('instance methods before `extend self` still use #', () => {
+    let source = [
+      'module Mod',
+      '  def instance_m',
+      '  extend self',
+      '  def class_m'
+    ].join('\n');
+    namespaceEquals(source, 'Mod.class_m');
+  });
+
+  test('methods in nested class ignore outer `extend self`', () => {
+    let source = [
+      'module Mod',
+      '  extend self',
+      '  class Inner',
+      '    def inner_m'
+    ].join('\n');
+    namespaceEquals(source, 'Mod::Inner#inner_m');
+  });
+
   test('handles constants', () => {
     let source = [
       'module Mod',

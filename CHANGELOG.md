@@ -4,6 +4,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 1.6.0
+
+- Add support to class methods scoped with `extend self` and `module_function`
+
 ## 1.5.0
 
 - Remove clipboardy dependency in favour of native VSCode clipboard API

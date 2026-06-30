@@ -15,14 +15,11 @@ No keyboard shortcut is provided at the moment to prevent conflicts with other e
 
 Follow the [keybindings documentation](https://code.visualstudio.com/docs/getstarted/keybindings) to map the `copy-ruby-member-reference.copyReference` command to your own keybinding.
 
-## Known Issues
+## Known limitations
 
-Some class method definitions are not understood by the extension and might be copied as instance methods, these patterns include:
+To avoid additional dependencies or a language-server integration, parsing is built into the extension as a regex-based engine relying on proper indentation.
 
-- `extend self`
-- `module_function`
-
-Parsing currently relies on proper indentation levels.
+It won't identify references inside methods.
 
 ## Release Notes
 
